@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\EntryController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MoodController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/', [HomeController::class, 'index']);
+Route::resource('moods', MoodController::class);
+Route::resource('entries', EntryController::class);

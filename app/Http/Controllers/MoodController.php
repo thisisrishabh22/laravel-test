@@ -12,7 +12,9 @@ class MoodController extends Controller
      */
     public function index()
     {
-        //
+        $moods = Mood::all();
+
+        return view('moods.index')->with('moods', $moods);
     }
 
     /**
@@ -20,7 +22,7 @@ class MoodController extends Controller
      */
     public function create()
     {
-        //
+        return view('moods.create');
     }
 
     /**
@@ -28,7 +30,16 @@ class MoodController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string',
+            'color' => 'required|string',
+        ]);
+
+        Mood::create($request->all());
+
+        return redirect()->route('moods.index')
+            ->with('success', 'Mood created successfully.');
+
     }
 
     /**
@@ -36,7 +47,7 @@ class MoodController extends Controller
      */
     public function show(Mood $mood)
     {
-        //
+        return view('moods.show')->with('mood', $mood);
     }
 
     /**
@@ -44,7 +55,7 @@ class MoodController extends Controller
      */
     public function edit(Mood $mood)
     {
-        //
+        return view('moods.edit')->with('mood', $mood);
     }
 
     /**
@@ -52,7 +63,16 @@ class MoodController extends Controller
      */
     public function update(Request $request, Mood $mood)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string',
+            'color' => 'required|string',
+        ]);
+
+        $updatedMood = $request->all();
+        $mood->update($updatedMood);
+
+        return redirect()->route('moods.show', [$mood->id])
+            ->with('success', 'Mood updated successfully.');
     }
 
     /**
@@ -60,6 +80,9 @@ class MoodController extends Controller
      */
     public function destroy(Mood $mood)
     {
-        //
+        $mood->delete();
+
+        return redirect()->route('moods.index')
+        ->with('success', 'Mood deleted successfully.');
     }
 }
