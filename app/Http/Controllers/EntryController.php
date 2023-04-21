@@ -105,6 +105,8 @@ class EntryController extends Controller
         // Destroy entry with id
         $entry->delete();
 
+        Cache::forget('entries');
+
         return redirect()->route('entries.index')
             ->with('success', 'Entry deleted successfully');
     }

@@ -14,13 +14,14 @@
       </div>
     </div>
     <div class="mt-5 md:mt-0 md:col-span-2">
-      <form action="#" method="POST">
+      <form action="{{ route('moods.store') }}" method="POST">
+        @csrf
         <div class="shadow overflow-hidden sm:rounded-md">
           <div class="px-4 py-5 bg-white sm:p-6">
             <div class="grid grid-cols-6 gap-6">
               <div class="col-span-6 sm:col-span-3">
                 <label for="color" class="block text-sm font-medium text-gray-700">Color</label>
-                <input type="text" name="color" id="color" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-2 px-3">
+                <input type="color" name="color" id="color" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-2 px-3">
                 <span class="text-gray-400 text-xs">HEX code or string</span>
               </div>
               <div class="col-span-6 sm:col-span-3">

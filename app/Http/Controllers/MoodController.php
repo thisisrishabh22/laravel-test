@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mood;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class MoodController extends Controller
 {
@@ -30,9 +31,9 @@ class MoodController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|string',
-            'color' => 'required|string',
+        $request->validate([
+            'name' => 'required|string|unique:moods,name',
+            'color' => 'required|string|unique:moods,color',
         ]);
 
         Mood::create($request->all());
@@ -63,9 +64,9 @@ class MoodController extends Controller
      */
     public function update(Request $request, Mood $mood)
     {
-        $this->validate($request, [
-            'name' => 'required|string',
-            'color' => 'required|string',
+        $request->validate([
+            'name' => 'required|string|unique:moods,color,' . $mood->id . ',id',
+            'color' => 'required|string|unique:moods,color,' . $mood->id . ',id'
         ]);
 
         $updatedMood = $request->all();
